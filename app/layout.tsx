@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { Header } from "@/components/layout/header";
+import { Footer } from "@/components/layout/footer";
+import { SmoothScroll } from "@/components/smooth-scroll";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,12 +16,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "삼일공업고등학교 | 풀스택 개발 프로젝트 전시",
-  description: "삼일공업고등학교 학생들이 만든 창의적이고 혁신적인 풀스택 개발 프로젝트들을 만나보세요",
-  keywords: ["삼일공업고등학교", "풀스택 개발", "학생 프로젝트", "웹 개발", "프로그래밍"],
+  title: "STHC-TEAMS | 삼일공업고등학교 풀스택 개발팀",
+  description: "STHC-TEAMS - 삼일공업고등학교 학생들의 창의적이고 혁신적인 풀스택 개발 프로젝트 전시관",
+  keywords: ["STHC-TEAMS", "삼일공업고등학교", "풀스택 개발", "학생 프로젝트", "웹 개발", "프로그래밍"],
   openGraph: {
-    title: "삼일공업고등학교 | 풀스택 개발 프로젝트 전시",
-    description: "삼일공업고등학교 학생들의 창의적인 풀스택 개발 프로젝트 전시관",
+    title: "STHC-TEAMS | 삼일공업고등학교 풀스택 개발팀",
+    description: "STHC-TEAMS - 삼일공업고등학교 학생들의 창의적인 풀스택 개발 프로젝트 전시관",
     type: "website",
   },
 };
@@ -31,9 +34,14 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-slate-50 dark:bg-slate-900`}
       >
-        {children}
+        <SmoothScroll />
+        <Header />
+        <main className="flex-1">
+          {children}
+        </main>
+        <Footer />
       </body>
     </html>
   );

@@ -1,18 +1,9 @@
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
+import type { Project } from "@/lib/data/projects";
 
-interface ProjectCardProps {
-  title: string;
-  description: string;
-  category: string;
-  projectName: string;
-  technologies: string[];
-  imageUrl?: string;
-  siteUrl?: string;
-  githubUrl?: string;
-  developer?: string;
-}
+interface ProjectCardProps extends Omit<Project, 'id' | 'featured'> {}
 
 export function ProjectCard({
   title,

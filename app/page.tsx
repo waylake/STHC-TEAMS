@@ -1,43 +1,14 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { SmoothScroll } from "@/components/smooth-scroll";
 import { ProjectCard } from "@/components/project-card";
+import { getFeaturedProjects } from "@/lib/data/projects";
 import Link from "next/link";
 
 export default function Home() {
+  const featuredProjects = getFeaturedProjects();
+
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-900">
-      <SmoothScroll />
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-700 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center space-x-3">
-              <Image
-                src="/sthc-logo.png"
-                alt="삼일공업고등학교 로고"
-                width={40}
-                height={40}
-                className="rounded-lg"
-              />
-              <div className="font-bold text-lg text-slate-900 dark:text-white">
-                삼일공업고등학교
-              </div>
-            </div>
-            <div className="hidden md:flex space-x-8">
-              <a href="#projects" className="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors">
-                프로젝트
-              </a>
-              <Link href="/projects" className="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors">
-                전체 프로젝트
-              </Link>
-              <a href="#about" className="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors">
-                소개
-              </a>
-            </div>
-          </div>
-        </div>
-      </nav>
+    <div className="pt-16">{/* Offset for fixed header */}
 
       {/* Hero Section */}
       <section className="pt-20 pb-16 px-4 sm:px-6 lg:px-8">
@@ -54,12 +25,12 @@ export default function Home() {
               />
             </div>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 dark:text-white mb-6">
-              풀스택 개발
+              STHC-TEAMS
               <br />
-              <span className="text-slate-700 dark:text-slate-300">프로젝트 전시관</span>
+              <span className="text-slate-700 dark:text-slate-300">풀스택 개발팀</span>
             </h1>
             <p className="text-xl text-slate-600 dark:text-slate-400 mb-8 max-w-3xl mx-auto leading-relaxed">
-              외부강사 지도하에 8명의 학생들이 한 팀이 되어 개발한 다양한 웹 애플리케이션 프로젝트들을 만나보세요
+              삼일공업고등학교 풀스택 개발팀이 만든 창의적이고 혁신적인 웹 애플리케이션 프로젝트들을 만나보세요
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" className="bg-slate-900 hover:bg-slate-800 text-white px-8 py-3 text-lg">
@@ -88,34 +59,20 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <ProjectCard
-              title="온라인 쇼핑몰 플랫폼"
-              description="사용자 인증, 상품 관리, 결제 시스템을 포함한 완전한 전자상거래 솔루션"
-              category="웹 애플리케이션"
-              projectName="E-Commerce Platform"
-              technologies={["React", "Node.js", "MongoDB", "Stripe"]}
-              developer="김○○"
-              githubUrl="https://github.com/example/ecommerce-platform"
-            />
-            <ProjectCard
-              title="스마트 할일 관리 앱"
-              description="실시간 협업과 알림 기능을 갖춘 팀 프로젝트 관리 도구"
-              category="협업 도구"
-              projectName="Task Management"
-              technologies={["Vue.js", "Express", "PostgreSQL", "Socket.io"]}
-              developer="이○○"
-              githubUrl="https://github.com/example/task-management"
-              siteUrl="https://task-app-demo.vercel.app"
-            />
-            <ProjectCard
-              title="실시간 데이터 대시보드"
-              description="차트와 그래프를 통한 데이터 시각화 및 분석 플랫폼"
-              category="데이터 분석"
-              projectName="Analytics Dashboard"
-              technologies={["Next.js", "Python", "Redis", "Chart.js"]}
-              developer="박○○"
-              githubUrl="https://github.com/example/analytics-dashboard"
-            />
+            {featuredProjects.map((project) => (
+              <ProjectCard
+                key={project.id}
+                title={project.title}
+                description={project.description}
+                category={project.category}
+                projectName={project.projectName}
+                technologies={project.technologies}
+                developer={project.developer}
+                githubUrl={project.githubUrl}
+                siteUrl={project.siteUrl}
+                imageUrl={project.imageUrl}
+              />
+            ))}
           </div>
 
           <div className="text-center mt-12">
@@ -222,13 +179,13 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-6">
-                삼일공업고등학교
+                STHC-TEAMS
                 <br />
-                <span className="text-slate-600 dark:text-slate-400">풀스택 개발 과정</span>
+                <span className="text-slate-600 dark:text-slate-400">풀스택 개발팀</span>
               </h2>
               <p className="text-lg text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
-                외부강사의 지도하에 8명의 학생들이 협력하여 실무 중심의 풀스택 개발 프로젝트를 진행하고 있습니다. 
-                이론과 실습을 병행하며 실제 서비스 개발 경험을 통해 실무 역량을 기르고 있습니다.
+                삼일공업고등학교 풀스택 개발팀 STHC-TEAMS는 외부강사의 지도하에 8명의 학생들이 협력하여 
+                실무 중심의 풀스택 개발 프로젝트를 진행하고 있습니다. 이론과 실습을 병행하며 실제 서비스 개발 경험을 통해 실무 역량을 기르고 있습니다.
               </p>
               <div className="space-y-4">
                 <div className="flex items-center space-x-3">
@@ -260,27 +217,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-slate-900 dark:bg-slate-950 text-white py-8 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto text-center">
-          <div className="flex items-center justify-center space-x-3 mb-4">
-            <Image
-              src="/sthc-logo.png"
-              alt="삼일공업고등학교 로고"
-              width={32}
-              height={32}
-              className="rounded-lg"
-            />
-            <span className="font-semibold text-lg">삼일공업고등학교 프로젝트 전시관</span>
-          </div>
-          <p className="text-slate-400 text-sm mb-2">
-            외부강사 지도하에 학생들이 제작한 프로젝트 전시 사이트입니다
-          </p>
-          <p className="text-slate-500 text-xs">
-            &copy; 2025 삼일공업고등학교. All rights reserved.
-          </p>
-        </div>
-      </footer>
     </div>
   );
 }
